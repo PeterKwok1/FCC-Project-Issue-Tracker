@@ -22,10 +22,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //Sample front-end
-// app.route('/:project/')
-//   .get(function (req, res) {
-//     res.sendFile(process.cwd() + '/views/issue.html');
-//   });
+app.route('/:project/')
+  .get(function (req, res) {
+    res.sendFile(process.cwd() + '/views/issue.html');
+  });
 
 //Index page (static HTML)
 app.route('/')
@@ -63,3 +63,5 @@ const listener = app.listen(process.env.PORT || 3000, function () {
 });
 
 module.exports = app; //for testing
+
+console.log(process.env.MONGO_URI)

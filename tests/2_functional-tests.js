@@ -9,7 +9,7 @@ suite('Functional Tests', function () {
     test('Create an issue with every field: POST request to /api/issues/{project}', (done) => {
         chai
             .request(server)
-            // .post('/api/issues')
+            .post('/api/issues/apitest')
             .end((err, res) => {
                 // assert.equal(res.status, 404, 'Was  found')
                 done()
