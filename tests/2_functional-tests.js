@@ -10,8 +10,13 @@ suite('Functional Tests', function () {
         chai
             .request(server)
             .post('/api/issues/apitest')
+            .send({
+                one: 1,
+                two: 2
+            })
             .end((err, res) => {
-                // assert.equal(res.status, 404, 'Was  found')
+                assert.equal(res.body.one, 1)
+                assert.equal(res.body.two, 2)
                 done()
             })
     })

@@ -11,6 +11,9 @@ module.exports = function (app) {
     .post(function (req, res) {
       let project = req.params.project;
 
+      const body = req.body
+      console.log(body)
+      res.json(body)
     })
 
     .put(function (req, res) {
