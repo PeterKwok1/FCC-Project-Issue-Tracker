@@ -5,16 +5,8 @@ const bodyParser = require('body-parser');
 const expect = require('chai').expect;
 const cors = require('cors');
 require('dotenv').config();
-
 // my code
-const db = require("./db-connection.js").db
-const testModel = require('./models.js').testModel
-
-const testDoc = testModel({
-  field_one: "Test",
-  field_two: 1
-})
-testDoc.save()
+require('./db-connection.js')
 // 
 
 const apiRoutes = require('./routes/api.js');
@@ -26,8 +18,6 @@ let app = express();
 app.use('/public', express.static(process.cwd() + '/public'));
 
 app.use(cors({ origin: '*' })); //For FCC testing purposes only
-
-
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -49,6 +39,7 @@ fccTestingRoutes(app);
 
 //Routing for API 
 apiRoutes(app);
+// 
 
 //404 Not Found Middleware
 app.use(function (req, res, next) {
