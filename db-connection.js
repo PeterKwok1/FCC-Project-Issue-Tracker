@@ -1,5 +1,11 @@
-import { Mongoose } from "mongoose";
+// my code
+
+const mongoose = require('mongoose')
 
 const uri = process.env.MONGO_URI
 
-export const db = Mongoose.connect(uri)
+const db = mongoose.connect(uri)
+
+module.exports = { db }
+
+// 

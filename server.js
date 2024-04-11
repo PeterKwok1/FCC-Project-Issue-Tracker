@@ -6,6 +6,17 @@ const expect = require('chai').expect;
 const cors = require('cors');
 require('dotenv').config();
 
+// my code
+const db = require("./db-connection.js").db
+const testModel = require('./models.js').testModel
+
+const testDoc = testModel({
+  field_one: "Test",
+  field_two: 1
+})
+testDoc.save()
+// 
+
 const apiRoutes = require('./routes/api.js');
 const fccTestingRoutes = require('./routes/fcctesting.js');
 const runner = require('./test-runner');
@@ -63,5 +74,3 @@ const listener = app.listen(process.env.PORT || 3000, function () {
 });
 
 module.exports = app; //for testing
-
-console.log(process.env.MONGO_URI)
