@@ -13,6 +13,7 @@ module.exports = async function (app) {
           return
         }
 
+        // filter
         const issueDocs = await IssueModel.find({
           projectId: projectDoc._id,
           ...req.query
