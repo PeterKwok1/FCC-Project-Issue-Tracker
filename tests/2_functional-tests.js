@@ -6,18 +6,21 @@ const server = require('../server');
 chai.use(chaiHttp);
 
 suite('Functional Tests', function () {
-    test('Create an issue with every field: POST request to /api/issues/{project}', (done) => {
+    test('Create an issue with every field: POST request to /api/issues/{project}', () => {
         chai
             .request(server)
-            .post('/api/issues/apitest')
+            .post('/api/issues/test')
+            // .set('content-type', 'application/json')
             .send({
-                one: 1,
-                two: 2
+                issue_title: 'Issue 1',
+                issue_text: 'Functional test 1',
+                created_by: 'fCC',
+                assigned_to: 'Tom',
+                status_text: 'incomplete'
             })
             .end((err, res) => {
-                assert.equal(res.body.one, 1)
-                assert.equal(res.body.two, 2)
-                done()
+                assert.equal(res.status, 200)
+                assert.equal(res.body.issue_title, 'Issue_1')
             })
     })
     // test('Create an issue with only required fields: POST request to /api/issues/{project}', (done) => {
