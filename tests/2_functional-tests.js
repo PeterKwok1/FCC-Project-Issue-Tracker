@@ -81,55 +81,102 @@ suite('Functional Tests', function () {
                 done()
             })
     })
-    // test('View issues on a project with multiple filters: GET request to /api/issues/{project}', () => {
-    //     chai
-    //         .request(server)
-    //         .end((err, res) => {
-
-    //         })
-    // })
-    // test('Update one field on an issue: PUT request to /api/issues/{project}', () => {
-    //     chai
-    //         .request(server)
-    //         .end((err, res) => {
-
-    //         })
-    // })
-    // test('Update multiple fields on an issue: PUT request to /api/issues/{project}', () => {
-    //     chai
-    //         .request(server)
-    //         .end((err, res) => {
-
-    //         })
-    // })
-    // test('Update an issue with missing _id: PUT request to /api/issues/{project}', () => {
-    //     chai
-    //         .request(server)
-    //         .end((err, res) => {
-
-    //         })
-    // })
-    // test('Update an issue with no fields to update: PUT request to /api/issues/{project}', () => {
-    //     chai
-    //         .request(server)
-    //         .end((err, res) => {
-
-    //         })
-    // })
-    // test('Update an issue with an invalid _id: PUT request to /api/issues/{project}', () => {
-    //     chai
-    //         .request(server)
-    //         .end((err, res) => {
-
-    //         })
-    // })
-    // test('Delete an issue: DELETE request to /api/issues/{project}', () => {
-    //     chai
-    //         .request(server)
-    //         .end((err, res) => {
-
-    //         })
-    // })
+    test('View issues on a project with multiple filters: GET request to /api/issues/{project}', (done) => {
+        chai
+            .request(server)
+            .get('/api/issues/test')
+            .query({
+                issue_title: issueDoc1.issue_title,
+                created_by: issueDoc1.created_by
+            })
+            .end((err, res) => {
+                assert.equal(res.status, 200)
+                assert.instanceOf(res.body, Array)
+                done()
+            })
+    })
+    test('Update one field on an issue: PUT request to /api/issues/{project}', (done) => {
+        chai
+            .request(server)
+            .put('/api/issues/test')
+            .send({
+                _id: issueDoc1._id,
+                issue_title: 'New Title'
+            })
+            .end((err, res) => {
+                assert.equal(res.status, 200)
+                assert.equal(res.body.result, 'successfully updated')
+                done()
+            })
+    })
+    test('Update multiple fields on an issue: PUT request to /api/issues/{project}', (done) => {
+        chai
+            .request(server)
+            .put('/api/issues/test')
+            .send({
+                _id: issueDoc1._id,
+                issue_title: 'New Title',
+                issue_text: 'New Text'
+            })
+            .end((err, res) => {
+                assert.equal(res.status, 200)
+                assert.equal(res.body.result, 'successfully updated')
+                done()
+            })
+    })
+    test('Update an issue with missing _id: PUT request to /api/issues/{project}', (done) => {
+        chai
+            .request(server)
+            .put('/api/issues/test')
+            .send({
+                issue_title: 'New Title 2',
+            })
+            .end((err, res) => {
+                assert.equal(res.status, 200)
+                assert.equal(res.body.error, 'missing _id')
+                done()
+            })
+    })
+    test('Update an issue with no fields to update: PUT request to /api/issues/{project}', (done) => {
+        chai
+            .request(server)
+            .put('/api/issues/test')
+            .send({
+                _id: issueDoc1._id
+            })
+            .end((err, res) => {
+                assert.equal(res.status, 200)
+                assert.equal(res.body.error, 'no update field(s) sent')
+                done()
+            })
+    })
+    test('Update an issue with an invalid _id: PUT request to /api/issues/{project}', (done) => {
+        chai
+            .request(server)
+            .put('/api/issues/test')
+            .send({
+                _id: 'Invalid ID',
+                issue_title: 'New title 2'
+            })
+            .end((err, res) => {
+                assert.equal(res.status, 200)
+                assert.equal(res.body.error, 'could not update')
+                done()
+            })
+    })
+    test('Delete an issue: DELETE request to /api/issues/{project}', (done) => {
+        chai
+            .request(server)
+            .delete('/api/issues/test')
+            .send({
+                _id: issueDoc1._id
+            })
+            .end((err, res) => {
+                assert.equal(res.status, 200)
+                assert.equal(res.body.result, 'successfully deleted')
+                done()
+            })
+    })
     // test('Delete an issue with an invalid _id: DELETE request to /api/issues/{project}', () => {
     //     chai
     //         .request(server)

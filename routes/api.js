@@ -86,9 +86,10 @@ module.exports = async function (app) {
           ...req.body,
           updated_on: new Date()
         })
-        if (!issueDoc) {
-          throw new Error('issue not found')
-        }
+        // if (!issueDoc) {
+        //   throw new Error('issue not found')
+        // }
+        // When it can't find the doc, it throws an error anyway. 
 
         await issueDoc.save()
         res.json({ result: 'successfully updated', _id: _id })
@@ -98,7 +99,6 @@ module.exports = async function (app) {
       }
     })
 
-    // finish delete
     .delete(async (req, res) => {
       let project = req.params.project;
       const { _id } = req.body
