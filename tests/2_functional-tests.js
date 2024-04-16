@@ -177,18 +177,27 @@ suite('Functional Tests', function () {
                 done()
             })
     })
-    // test('Delete an issue with an invalid _id: DELETE request to /api/issues/{project}', () => {
-    //     chai
-    //         .request(server)
-    //         .end((err, res) => {
-
-    //         })
-    // })
-    // test('Delete an issue with missing _id: DELETE request to /api/issues/{project}', () => {
-    //     chai
-    //         .request(server)
-    //         .end((err, res) => {
-
-    //         })
-    // })
+    test('Delete an issue with an invalid _id: DELETE request to /api/issues/{project}', (done) => {
+        chai
+            .request(server)
+            .delete('/api/issues/test')
+            .send({
+                _id: 'Invalid ID'
+            })
+            .end((err, res) => {
+                assert.equal(res.status, 200)
+                assert.equal(res.body.error, 'could not delete')
+                done()
+            })
+    })
+    test('Delete an issue with missing _id: DELETE request to /api/issues/{project}', (done) => {
+        chai
+            .request(server)
+            .delete('/api/issues/test')
+            .end((err, res) => {
+                assert.equal(res.status, 200)
+                assert.equal(res.body.error, 'missing _id')
+                done()
+            })
+    })
 });

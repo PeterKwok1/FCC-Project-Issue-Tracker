@@ -25,7 +25,7 @@ module.exports = async function (app) {
 
         res.json(issueDocs)
       } catch (err) {
-        console.error(err)
+        // console.error(err)
         res.json({ error: 'could not get' })
       }
     })
@@ -57,7 +57,7 @@ module.exports = async function (app) {
         })
         res.json(await issueDoc.save())
       } catch (err) {
-        console.error(err)
+        // console.error(err)
       }
     })
 
@@ -94,7 +94,7 @@ module.exports = async function (app) {
         await issueDoc.save()
         res.json({ result: 'successfully updated', _id: _id })
       } catch (err) {
-        console.error(err)
+        // console.error(err)
         res.json({ error: 'could not update', _id: _id })
       }
     })
@@ -123,7 +123,7 @@ module.exports = async function (app) {
           res.json({ result: 'successfully deleted', _id: _id })
         }
       } catch (err) {
-        console.error(err)
+        // console.error(err)
         res.json({ error: 'could not delete', _id: _id })
       }
     });
